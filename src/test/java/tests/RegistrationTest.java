@@ -1,29 +1,39 @@
 package tests;
 
+import com.github.javafaker.DateAndTime;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
-public class RegistrationTest extends TestBase {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
-    private String firstName = "Kirill",
-            lastName = "Andryushchenko",
-            userEmail = "kirill@mail.com",
-            userGender = "Male",
-            userPhone = "8005553535",
-            userBirthDay = "26",
-            userBirthMonth = "June",
-            userBirthYear = "2001",
-            subjects = "Maths",
-            hobbies = "Music",
-            imagePath = "profile.jpg",
-            currentAddress = "Lenina Street",
-            userState = "NCR",
-            userCity = "Delhi";
+public class RegistrationTest extends TestBase {
 
     @Test
     @DisplayName("Регистрация пользователя с валидными данными")
     public void successfulRegistration() {
+
+        Faker faker = new Faker();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+        String[] birthday = dateFormat.format(faker.date().birthday()).split(" ");
+
+        String firstName = faker.name().firstName(),
+                lastName = faker.name().lastName(),
+                userEmail = faker.internet().emailAddress(),
+                userGender = "Male",
+                userPhone = faker.phoneNumber().subscriberNumber(10),
+                userBirthDay = birthday[0],
+                userBirthMonth = birthday[1],
+                userBirthYear = birthday[2],
+                subjects = "Maths",
+                hobbies = "Music",
+                imagePath = "profile.jpg",
+                currentAddress = faker.address().streetAddress(),
+                userState = "NCR",
+                userCity = "Delhi";
 
         new RegistrationPage().openPage()
                 .setFirstName(firstName)

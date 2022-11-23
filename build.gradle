@@ -8,6 +8,7 @@ version '1.0-SNAPSHOT'
 ext {
     selenideVersion = "6.7.2"
     junitVersion = "5.8.2"
+    javaFakerVersion = "1.0.2"
 }
 
 repositories {
@@ -21,6 +22,7 @@ tasks.withType(JavaCompile) {
 dependencies {
     testImplementation(
             "com.codeborne:selenide:${selenideVersion}",
+            "com.github.javafaker:javafaker:${javaFakerVersion}",
             "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     )
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
