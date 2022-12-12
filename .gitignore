@@ -1,7 +1,9 @@
 \.gradle
 \.idea
 \build
+\out
 *.log
 *.class
+*~
 gradlew
 gradlew.bat

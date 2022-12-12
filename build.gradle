@@ -1,14 +1,30 @@
 plugins {
     id 'java-library'
+    id "io.qameta.allure" version "2.9.6"
 }
 
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+allure {
+    report {
+        version.set("2.19.0");
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set("2.19.0")
+            }
+        }
+    }
+}
+
 ext {
-    selenideVersion = "6.7.2"
+    selenideVersion = "6.9.0"
     junitVersion = "5.8.2"
-    javaFakerVersion = "1.0.2"
+    aspectjWeaverVersion = "1.9.8"
+    allureSelenideVersion = "2.19.0"
 }
 
 repositories {
@@ -21,11 +37,11 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     testImplementation(
+            "org.junit.jupiter:junit-jupiter:${junitVersion}",
             "com.codeborne:selenide:${selenideVersion}",
-            "com.github.javafaker:javafaker:${javaFakerVersion}",
-            "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+            "org.aspectj:aspectjweaver:${aspectjWeaverVersion}",
+            "io.qameta.allure:allure-selenide:${allureSelenideVersion}"
     )
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 
 test {
