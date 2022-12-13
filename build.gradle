@@ -25,10 +25,22 @@ ext {
     junitVersion = "5.8.2"
     aspectjWeaverVersion = "1.9.8"
     allureSelenideVersion = "2.19.0"
+    slf4jVarsion = "2.0.3"
 }
 
 repositories {
     mavenCentral()
+}
+
+tasks.withType(Test){
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
 }
 
 tasks.withType(JavaCompile) {
@@ -37,13 +49,10 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     testImplementation(
-            "org.junit.jupiter:junit-jupiter:${junitVersion}",
-            "com.codeborne:selenide:${selenideVersion}",
-            "org.aspectj:aspectjweaver:${aspectjWeaverVersion}",
-            "io.qameta.allure:allure-selenide:${allureSelenideVersion}"
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "org.aspectj:aspectjweaver:$aspectjWeaverVersion",
+            "io.qameta.allure:allure-selenide:$allureSelenideVersion",
+            "org.slf4j:slf4j-simple:$slf4jVarsion"                          // логгер
     )
-}
-
-test {
-    useJUnitPlatform()
 }
