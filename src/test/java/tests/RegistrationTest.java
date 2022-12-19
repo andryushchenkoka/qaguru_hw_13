@@ -8,6 +8,8 @@ import pages.RegistrationPage;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import static io.qameta.allure.Allure.step;
+
 public class RegistrationTest extends TestBase {
 
     @Test
@@ -33,30 +35,40 @@ public class RegistrationTest extends TestBase {
                 userState = "NCR",
                 userCity = "Delhi";
 
-        new RegistrationPage().openPage()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setEmail(userEmail)
-                .setGender(userGender)
-                .setPhone(userPhone)
-                .setBirthDay(userBirthDay, userBirthMonth, userBirthYear)
-                .setSubject(subjects)
-                .setHobbie(hobbies)
-                .uploadPicture(imagePath)
-                .setCurrentAddress(currentAddress)
-                .selectState(userState)
-                .selectCity(userCity)
-                .submitForm()
-                .verifyResultModule()
-                .verifyResultValue("Student Name", firstName + " " + lastName)
-                .verifyResultValue("Student Email", userEmail)
-                .verifyResultValue("Gender", userGender)
-                .verifyResultValue("Mobile", userPhone)
-                .verifyResultValue("Date of Birth", userBirthDay + " " + userBirthMonth + "," + userBirthYear)
-                .verifyResultValue("Subjects", subjects)
-                .verifyResultValue("Hobbies", hobbies)
-                .verifyResultValue("Picture", imagePath)
-                .verifyResultValue("Address", currentAddress)
-                .verifyResultValue("State and City", userState + " " + userCity);
+        RegistrationPage regPage = new RegistrationPage();
+
+        step("Открыть страницу регистрации", () -> {
+            regPage.openPage();
+        });
+        step("Заполнить форму регистрации", () -> {
+            regPage.setFirstName(firstName)
+                    .setLastName(lastName)
+                    .setEmail(userEmail)
+                    .setGender(userGender)
+                    .setPhone(userPhone)
+                    .setBirthDay(userBirthDay, userBirthMonth, userBirthYear)
+                    .setSubject(subjects)
+                    .setHobbie(hobbies)
+                    .uploadPicture(imagePath)
+                    .setCurrentAddress(currentAddress)
+                    .selectState(userState)
+                    .selectCity(userCity);
+        });
+        step("Отправить форму", () -> {
+            regPage.submitForm();
+        });
+        step("Проверить данные регистрации в модульном окне", () -> {
+            regPage.verifyResultModule()
+                    .verifyResultValue("Student Name", firstName + " " + lastName)
+                    .verifyResultValue("Student Email", userEmail)
+                    .verifyResultValue("Gender", userGender)
+                    .verifyResultValue("Mobile", userPhone)
+                    .verifyResultValue("Date of Birth", userBirthDay + " " + userBirthMonth + "," + userBirthYear)
+                    .verifyResultValue("Subjects", subjects)
+                    .verifyResultValue("Hobbies", hobbies)
+                    .verifyResultValue("Picture", imagePath)
+                    .verifyResultValue("Address", currentAddress)
+                    .verifyResultValue("State and City", userState + " " + userCity);
+        });
     }
 }
