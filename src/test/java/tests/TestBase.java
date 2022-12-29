@@ -21,8 +21,6 @@ public class TestBase {
         String[] browserParams = System.getProperty("browser", "chrome 100").split(" ");
 
         Configuration.baseUrl = System.getProperty("base_url", "https://demoqa.com");
-        Configuration.browser = browserParams[0];
-        Configuration.browserVersion = browserParams[1];
         Configuration.browserSize = System.getProperty("browser_size", "1920x1080");
         Configuration.timeout = 10000;
         Configuration.remote = System.getProperty("remote_url", "https://user1:1234@selenoid.autotests.cloud/wd/hub"); // ссылка на selenoid
@@ -30,6 +28,8 @@ public class TestBase {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", true);
+        capabilities.setBrowserName(browserParams[0]);
+        capabilities.setVersion(browserParams[1]);
         Configuration.browserCapabilities = capabilities;
     }
 
