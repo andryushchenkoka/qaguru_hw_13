@@ -6,7 +6,7 @@ import static helpers.Tags.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class OtherTest {
+public class OtherTest extends TestBase {
 
     @Test
     @DisplayName("Позитивный тест")
