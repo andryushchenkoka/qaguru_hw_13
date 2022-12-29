@@ -2,18 +2,23 @@ package tests;
 
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import static helpers.Tags.REGRESS;
+import static helpers.Tags.SMOKE;
 import static io.qameta.allure.Allure.step;
 
 public class RegistrationTest extends TestBase {
 
     @Test
     @DisplayName("Регистрация пользователя с валидными данными")
+    @Tags({@Tag(SMOKE), @Tag(REGRESS)})
     public void successfulRegistration() {
 
         Faker faker = new Faker();
