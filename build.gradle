@@ -33,7 +33,8 @@ repositories {
     mavenCentral()
 }
 
-tasks.withType(Test){
+tasks.withType(Test) {
+    systemProperties(System.getProperties())  // из терминала получить браузеры. Используется в тестовых методах
     useJUnitPlatform()
 
     testLogging {
@@ -57,4 +58,29 @@ dependencies {
             "com.github.javafaker:javafaker:${javaFakerVersion}",
             "org.slf4j:slf4j-simple:$slf4jVarsion"                          // логгер
     )
+}
+
+task only_smoke_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags("smoke")
+    }
+}
+
+task only_regress_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags("regress")
+    }
+}
+
+task smoke_regress_tests(type: Test) {
+    useJUnitPlatform() {
+        includeTags("smoke")
+        includeTags("regress")
+    }
+}
+
+task property_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags("property_test")
+    }
 }
